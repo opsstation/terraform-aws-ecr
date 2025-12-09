@@ -4,16 +4,25 @@ locals {
   ecr_need_policy                      = length(var.principals_full_access) + length(var.principals_readonly_access) > 0 ? true : false
 }
 
-module "labels" {
-  source = "git::https://github.com/opsstation/terraform-aws-labels.git?ref=v1.0.0"
+##-----------------------------------------------------------------------------
+#Module      : Labels
+#Description : Terraform module to create consistent naming for multiple names.
+##-----------------------------------------------------------------------------
 
+module "labels" {
+  source      = "opsstation/labels/multicloud"
+  version     = "1.0.0"
   name        = var.name
-  environment = var.environment
-  label_order = var.label_order
   repository  = var.repository
+  environment = var.environment
   managedby   = var.managedby
-  extra_tags  = var.tags
+  label_order = var.label_order
+  extra_tags = {
+    Owner      = "Sohan"
+    CostCenter = "Finance"
+  }
 }
+
 
 resource "aws_ecr_repository" "default" {
   count                = var.enable_private_ecr ? 1 : 0

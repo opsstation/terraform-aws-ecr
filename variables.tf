@@ -23,11 +23,11 @@ variable "managedby" {
   description = "ManagedBy, eg 'opsStation' "
 }
 
-variable "tags" {
-  type        = map(any)
-  default     = {}
-  description = "Additional tags (e.g. map(`BusinessUnit`,`XYZ`)."
-}
+#variable "tags" {
+#  type        = map(any)
+#  default     = {}
+#  description = "Additional tags (e.g. map(`BusinessUnit`,`XYZ`)."
+#}
 
 variable "enable_private_ecr" {
   type        = bool
